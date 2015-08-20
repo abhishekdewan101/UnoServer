@@ -19,11 +19,17 @@ public class Server {
 
     private void setupHandlers() {
 
-        //create different handlers for different sets of urls
-        mHttpServer.createContext("/test", new TestHandler());
+//        template for creating and adding handlers to the the httpserver.
+//        mHttpServer.createContext("/test/this", new TestHandler());
+
+          mHttpServer.createContext("/roku/netflix", new RokuHandler("netflix"));
+          mHttpServer.createContext("/roku/spotify", new RokuHandler("spotify"));
+          mHttpServer.createContext("/roku/prime", new RokuHandler("prime"));
+          mHttpServer.createContext("/roku/hbo", new RokuHandler("hbo"));
 
 
-        //make sure executor is set "null" and start the server
+
+//        make sure executor is set "null" and start the server
         mHttpServer.setExecutor(null);
         mHttpServer.start();
     }
