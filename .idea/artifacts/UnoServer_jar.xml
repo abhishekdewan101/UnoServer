@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UnoServer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/UnoServer_jar</output-path>
+    <root id="archive" name="UnoServer.jar">
+      <element id="module-output" name="HTTPServer" />
+    </root>
+  </artifact>
+</component>
