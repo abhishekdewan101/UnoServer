@@ -1,8 +1,8 @@
-/**
+package RokuSetup; /**
  * Author: Sebastian Goscik
  * Created: 16/08/13 21:24
- * Project: RokuECP
- * Searches a network for available Roku devices
+ * Project: RokuSetup.RokuECP
+ * Searches a network for available RokuSetup.Roku devices
  */
 
 import java.io.IOException;
@@ -25,14 +25,12 @@ public class RokuECP
 
     public static Roku[] search(int timeOut) throws IOException
     {
-        System.out.println("1");
         //Setup socket
         InetAddress localAddr = InetAddress.getLocalHost();
         multicastGroup = new InetSocketAddress("239.255.255.250", 1900);
         socketMulticast = new MulticastSocket(new InetSocketAddress(localAddr, 1990));
         netInterface = NetworkInterface.getByInetAddress(localAddr);
         socketMulticast.joinGroup(multicastGroup, netInterface);
-        System.out.println("2");
         //Variables
         ArrayList<Roku> devices = new ArrayList<Roku>();
 
@@ -41,20 +39,19 @@ public class RokuECP
 
         //Set search timeout
         socketMulticast.setSoTimeout(timeOut);
-        System.out.println("3");
         //Search for devices
         while (true) {
             try {
                 //Get packet
                 String data = new String(receive().getData());
                 String[] newRoku = data.split("\n");
-                System.out.println(newRoku.length);
+
+                System.out.println(data);
                 //Check if its a response from the roku
                 if (newRoku[0].equals("HTTP/1.1 200 OK\r") && newRoku[2].equals("ST: roku:ecp\r")) {
                     String IP = newRoku[6].split("/")[2].split(":")[0];
                     int PORT = Integer.parseInt(newRoku[6].split("/")[2].split(":")[1]);
                     String USN = newRoku[3].split(":")[4];
-
                     devices.add(new Roku(IP, PORT, USN));
                 }
             }
@@ -81,8 +78,12 @@ public class RokuECP
 
     public static void main(String[] args){
         try {
-           new RokuECP().search(100);
+          Roku[] roku =  new RokuECP().search(2000);
+          roku[0].connect();
+          roku[0].keyPress("left");
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

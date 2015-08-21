@@ -1,3 +1,4 @@
+import Handlers.RokuHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Server {
     private void setupHandlers() {
 
 //        template for creating and adding handlers to the the httpserver.
-//        mHttpServer.createContext("/test/this", new TestHandler());
+//        mHttpServer.createContext("/test/this", new Handlers.TestHandler());
 
           mHttpServer.createContext("/roku/netflix", new RokuHandler("netflix"));
           mHttpServer.createContext("/roku/spotify", new RokuHandler("spotify"));

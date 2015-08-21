@@ -1,8 +1,8 @@
-/**
+package RokuSetup; /**
  * Author: Sebastian Goscik
  * Created: 17/08/13 19:24
- * Project: RokuECP
- * All functions a Roku device has as according to the Roku ECP specification: http://sdkdocs.roku.com/display/sdkdoc/External+Control+Guide
+ * Project: RokuSetup.RokuECP
+ * All functions a RokuSetup.Roku device has as according to the RokuSetup.Roku ECP specification: http://sdkdocs.roku.com/display/sdkdoc/External+Control+Guide
  */
 
 import org.w3c.dom.Document;
